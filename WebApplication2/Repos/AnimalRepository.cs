@@ -39,8 +39,17 @@ public class AnimalRepository : IAnimalRepository
         return animals;
     }
 
-    public bool CreateAnimal(string s)
+    public bool CreateAnimal(string name, string description, string category, string area)
     {
-        throw new NotImplementedException();
+        using var connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
+        connection.Open();
+        
+        using var command = new SqlCommand("INSERT INTO Animal (Name, Description, CATEGORY, AREA) VALUES (@name, @desc, @cat, @area)", connection);
+        command.Parameters.AddWithValue("@name", name);
+        command.Parameters.AddWithValue("@desc", description);
+        command.Parameters.AddWithValue("@cat", category);
+        command.Parameters.AddWithValue("@area", area);
+        var affectedRows = command.ExecuteNonQuery();
+        return affectedRows == 1;
     }
 }

@@ -1,3 +1,4 @@
+using WebApplication2.DTOs;
 using WebApplication2.Model;
 using WebApplication2.Repos;
 
@@ -16,5 +17,10 @@ public class AnimalService : IAnimalService
     public IEnumerable<Animal> GetAllAnimals(string orderBy)
     {
         return _animalRepository.FetchAllAnimals(orderBy);
+    }
+
+    public bool AddAnimal(CreateAnimalDTO dto)
+    {
+        return _animalRepository.CreateAnimal(dto.Name, dto.Description, dto.Category, dto.Area);
     }
 }

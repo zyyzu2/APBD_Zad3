@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WebApplication2.DTOs;
 using WebApplication2.Services;
 
 namespace WebApplication2.Controller;
@@ -15,5 +16,12 @@ public class AnimalController(IAnimalService animalService) : ControllerBase
     {
         var animals = _animalService.GetAllAnimals(orderBy);
         return Ok(animals);
+    }
+
+    [HttpPost]
+    public IActionResult CreateAnimal([FromBody] CreateAnimalDTO dto)
+    {
+        var success = _animalService.AddAnimal(dto);
+        return success ? StatusCode(StatusCodes.Status201Created) : Conflict();
     }
 }
