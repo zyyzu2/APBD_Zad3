@@ -52,4 +52,20 @@ public class AnimalRepository : IAnimalRepository
         var affectedRows = command.ExecuteNonQuery();
         return affectedRows == 1;
     }
+
+    public bool UpdateAnimal(int id, string dtoName, string dtoDescription, string dtoCategory, string dtoArea)
+    {
+        using var connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
+        connection.Open();
+        
+        using var command = new SqlCommand("UPDATE Animal SET Name = @name, Description = @desc, CATEGORY = @cat, AREA = @area WHERE IdAnimal = @id", connection);
+        command.Parameters.AddWithValue("@name", dtoName);
+        command.Parameters.AddWithValue("@id", id);
+        command.Parameters.AddWithValue("@desc", dtoDescription);
+        command.Parameters.AddWithValue("@cat", dtoCategory);
+        command.Parameters.AddWithValue("@area", dtoArea);
+        
+        var affectedRows = command.ExecuteNonQuery();
+        return affectedRows == 1;
+    }
 }

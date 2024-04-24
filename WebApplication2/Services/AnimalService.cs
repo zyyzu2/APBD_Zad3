@@ -23,4 +23,9 @@ public class AnimalService : IAnimalService
     {
         return _animalRepository.CreateAnimal(dto.Name, dto.Description, dto.Category, dto.Area);
     }
+
+    public bool UpdateAnimal(int id, CreateAnimalDTO dto)
+    {
+        return _animalRepository.UpdateAnimal(id, dto.Name, dto.Description, dto.Category, dto.Area);
+    }
 }

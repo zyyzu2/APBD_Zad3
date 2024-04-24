@@ -12,7 +12,7 @@ public class AnimalController(IAnimalService animalService) : ControllerBase
 
     [HttpGet("")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult GetAllAnimals([FromQuery] string orderBy)
+    public IActionResult GetAllAnimals([FromQuery] string orderBy = "")
     {
         var animals = _animalService.GetAllAnimals(orderBy);
         return Ok(animals);
@@ -23,5 +23,12 @@ public class AnimalController(IAnimalService animalService) : ControllerBase
     {
         var success = _animalService.AddAnimal(dto);
         return success ? StatusCode(StatusCodes.Status201Created) : Conflict();
+    }
+
+    [HttpPut("{idAnimal:int}")]
+    public IActionResult UpdateAnimal([FromRoute] int idAnimal, [FromBody] CreateAnimalDTO dto)
+    {
+        var success = _animalService.UpdateAnimal(idAnimal, dto);
+        return success ? StatusCode(StatusCodes.Status200OK) : Conflict();
     }
 }
