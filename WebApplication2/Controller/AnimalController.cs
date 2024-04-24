@@ -31,4 +31,11 @@ public class AnimalController(IAnimalService animalService) : ControllerBase
         var success = _animalService.UpdateAnimal(idAnimal, dto);
         return success ? StatusCode(StatusCodes.Status200OK) : Conflict();
     }
+
+    [HttpDelete("{idAnimal:int}")]
+    public IActionResult DeleteAnimal([FromRoute] int idAnimal)
+    {
+        var success = _animalService.DeleteAnimal(idAnimal);
+        return success ? StatusCode(StatusCodes.Status200OK) : Conflict();
+    }
 }

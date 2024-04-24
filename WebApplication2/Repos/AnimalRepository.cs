@@ -68,4 +68,15 @@ public class AnimalRepository : IAnimalRepository
         var affectedRows = command.ExecuteNonQuery();
         return affectedRows == 1;
     }
+
+    public bool DeleteAnimal(int id)
+    {
+        using var connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]);
+        connection.Open();
+        
+        using var command = new SqlCommand("DELETE FROM Animal WHERE IdAnimal = @id", connection);
+        command.Parameters.AddWithValue("@id", id);
+        var affectedRows = command.ExecuteNonQuery();
+        return affectedRows == 1;
+    }
 }

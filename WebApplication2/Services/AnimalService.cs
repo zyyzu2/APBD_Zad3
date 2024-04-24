@@ -28,4 +28,9 @@ public class AnimalService : IAnimalService
     {
         return _animalRepository.UpdateAnimal(id, dto.Name, dto.Description, dto.Category, dto.Area);
     }
+
+    public bool DeleteAnimal(int id)
+    {
+        return _animalRepository.DeleteAnimal(id);
+    }
 }
